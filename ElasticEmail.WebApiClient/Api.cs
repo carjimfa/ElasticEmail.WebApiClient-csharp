@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ElasticEmail.WebApiClient.ApiTypes;
-using ElasticEmailClient;
 using System.Collections.Specialized;
 using System.Net;
 
@@ -84,13 +83,13 @@ namespace ElasticEmail.WebApiClient
             /// </summary>
             /// <param name="apikey">ApiKey that gives you access to our SMTP and HTTP API's.</param>
             /// <returns>List(AccessToken)</returns>
-            public static List<AccessToken> GetList()
+            public static List<ApiTypes.AccessToken> GetList()
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", Api.ApiKey);
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/accesstoken/getlist", values);
-                ApiResponse<List<AccessToken>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<AccessToken>>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<List<ApiTypes.AccessToken>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<ApiTypes.AccessToken>>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -300,13 +299,13 @@ namespace ElasticEmail.WebApiClient
             /// </summary>
             /// <param name="apikey">ApiKey that gives you access to our SMTP and HTTP API's.</param>
             /// <returns>Account</returns>
-            public static Account Load()
+            public static ApiTypes.Account Load()
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", Api.ApiKey);
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/account/load", values);
-                ApiResponse<Account> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<Account>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.Account> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.Account>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -348,13 +347,13 @@ namespace ElasticEmail.WebApiClient
             /// </summary>
             /// <param name="apikey">ApiKey that gives you access to our SMTP and HTTP API's.</param>
             /// <returns>Account</returns>
-            public static Account LoadInfo()
+            public static ApiTypes.Account LoadInfo()
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", Api.ApiKey);
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/account/loadinfo", values);
-                ApiResponse<Account> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<Account>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.Account> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.Account>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -923,7 +922,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="apikey">ApiKey that gives you access to our SMTP and HTTP API's.</param>
             /// <param name="campaign">Json representation of a campaign</param>
             /// <returns>int</returns>
-            public static int Add(Campaign campaign)
+            public static int Add(ApiTypes.Campaign campaign)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -1021,7 +1020,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="apikey">ApiKey that gives you access to our SMTP and HTTP API's.</param>
             /// <param name="campaign">Json representation of a campaign</param>
             /// <returns>int</returns>
-            public static int Update(Campaign campaign)
+            public static int Update(ApiTypes.Campaign campaign)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -1136,13 +1135,13 @@ namespace ElasticEmail.WebApiClient
             /// </summary>
             /// <param name="apikey">ApiKey that gives you access to our SMTP and HTTP API's.</param>
             /// <returns>List(Channel)</returns>
-            public static List<Channel> List()
+            public static List<ApiTypes.Channel> List()
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", Api.ApiKey);
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/channel/list", values);
-                ApiResponse<List<Channel>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<Channel>>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<List<ApiTypes.Channel>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<ApiTypes.Channel>>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -1434,7 +1433,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="limit">Maximum of loaded items.</param>
             /// <param name="offset">How many items should be loaded ahead.</param>
             /// <returns>List(Contact)</returns>
-            public static List<Contact> GetContactsByList(string listName, int limit = 20, int offset = 0)
+            public static List<ApiTypes.Contact> GetContactsByList(string listName, int limit = 20, int offset = 0)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -1443,7 +1442,7 @@ namespace ElasticEmail.WebApiClient
                 if (limit != 20) values.Add("limit", limit.ToString());
                 if (offset != 0) values.Add("offset", offset.ToString());
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/contact/getcontactsbylist", values);
-                ApiResponse<List<Contact>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<Contact>>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<List<ApiTypes.Contact>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<ApiTypes.Contact>>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -1456,7 +1455,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="limit">Maximum of loaded items.</param>
             /// <param name="offset">How many items should be loaded ahead.</param>
             /// <returns>List(Contact)</returns>
-            public static List<Contact> GetContactsBySegment(string segmentName, int limit = 20, int offset = 0)
+            public static List<ApiTypes.Contact> GetContactsBySegment(string segmentName, int limit = 20, int offset = 0)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -1465,7 +1464,7 @@ namespace ElasticEmail.WebApiClient
                 if (limit != 20) values.Add("limit", limit.ToString());
                 if (offset != 0) values.Add("offset", offset.ToString());
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/contact/getcontactsbysegment", values);
-                ApiResponse<List<Contact>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<Contact>>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<List<ApiTypes.Contact>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<ApiTypes.Contact>>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -1478,7 +1477,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="limit">Maximum of loaded items.</param>
             /// <param name="offset">How many items should be loaded ahead.</param>
             /// <returns>List(Contact)</returns>
-            public static List<Contact> List(string rule = null, int limit = 20, int offset = 0)
+            public static List<ApiTypes.Contact> List(string rule = null, int limit = 20, int offset = 0)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -1487,7 +1486,7 @@ namespace ElasticEmail.WebApiClient
                 if (limit != 20) values.Add("limit", limit.ToString());
                 if (offset != 0) values.Add("offset", offset.ToString());
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/contact/list", values);
-                ApiResponse<List<Contact>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<Contact>>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<List<ApiTypes.Contact>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<ApiTypes.Contact>>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -1522,14 +1521,14 @@ namespace ElasticEmail.WebApiClient
             /// <param name="apikey">ApiKey that gives you access to our SMTP and HTTP API's.</param>
             /// <param name="email">Proper email address.</param>
             /// <returns>Contact</returns>
-            public static Contact LoadContact(string email)
+            public static ApiTypes.Contact LoadContact(string email)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", Api.ApiKey);
                 values.Add("email", email);
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/contact/loadcontact", values);
-                ApiResponse<Contact> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<Contact>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.Contact> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.Contact>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -1628,7 +1627,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="field">Custom contact field like firstname, lastname, city etc. Request parameters prefixed by field_ like field_firstname, field_lastname </param>
             /// <param name="customFields">Custom contact field like firstname, lastname, city etc. JSON serialized text like { "city":"london" } </param>
             /// <returns>Contact</returns>
-            public static Contact Update(string email, string firstName = null, string lastName = null, bool clearRestOfFields = true, Dictionary<string, string> field = null, string customFields = null)
+            public static ApiTypes.Contact Update(string email, string firstName = null, string lastName = null, bool clearRestOfFields = true, Dictionary<string, string> field = null, string customFields = null)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -1646,7 +1645,7 @@ namespace ElasticEmail.WebApiClient
                 }
                 if (customFields != null) values.Add("customFields", customFields);
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/contact/update", values);
-                ApiResponse<Contact> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<Contact>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.Contact> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.Contact>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -2077,7 +2076,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="limit">Maximum of loaded items.</param>
             /// <param name="offset">How many items should be loaded ahead.</param>
             /// <returns>List(Export)</returns>
-            public static List<Export> List(int limit = 0, int offset = 0)
+            public static List<ApiTypes.Export> List(int limit = 0, int offset = 0)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -2085,7 +2084,7 @@ namespace ElasticEmail.WebApiClient
                 if (limit != 0) values.Add("limit", limit.ToString());
                 if (offset != 0) values.Add("offset", offset.ToString());
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/export/list", values);
-                ApiResponse<List<Export>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<Export>>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<List<ApiTypes.Export>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<ApiTypes.Export>>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -2125,7 +2124,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="filename">Name of your file.</param>
             /// <param name="fileID"></param>
             /// <returns>FileData</returns>
-            public static FileData Download(string filename = null, int? fileID = null)
+            public static ApiTypes.FileData Download(string filename = null, int? fileID = null)
             {
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", Api.ApiKey);
@@ -2140,14 +2139,14 @@ namespace ElasticEmail.WebApiClient
             /// <param name="apikey">ApiKey that gives you access to our SMTP and HTTP API's.</param>
             /// <param name="msgID">ID number of selected message.</param>
             /// <returns>List(File)</returns>
-            public static List<File> List(string msgID)
+            public static List<ApiTypes.File> List(string msgID)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", Api.ApiKey);
                 values.Add("msgID", msgID);
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/file/list", values);
-                ApiResponse<List<File>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<File>>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<List<ApiTypes.File>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<ApiTypes.File>>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -2157,13 +2156,13 @@ namespace ElasticEmail.WebApiClient
             /// </summary>
             /// <param name="apikey">ApiKey that gives you access to our SMTP and HTTP API's.</param>
             /// <returns>List(File)</returns>
-            public static List<File> ListAll()
+            public static List<ApiTypes.File> ListAll()
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", Api.ApiKey);
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/file/listall", values);
-                ApiResponse<List<File>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<File>>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<List<ApiTypes.File>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<ApiTypes.File>>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -2174,14 +2173,14 @@ namespace ElasticEmail.WebApiClient
             /// <param name="apikey">ApiKey that gives you access to our SMTP and HTTP API's.</param>
             /// <param name="filename">Name of your file.</param>
             /// <returns>File</returns>
-            public static File Load(string filename)
+            public static ApiTypes.File Load(string filename)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", Api.ApiKey);
                 values.Add("filename", filename);
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/file/load", values);
-                ApiResponse<File> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<File>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.File> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.File>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -2194,14 +2193,14 @@ namespace ElasticEmail.WebApiClient
             /// <param name="name">Filename</param>
             /// <param name="expiresAfterDays">After how many days should the file be deleted.</param>
             /// <returns>File</returns>
-            public static File Upload(FileData file, string name = null, int? expiresAfterDays = 35)
+            public static ApiTypes.File Upload(FileData file, string name = null, int? expiresAfterDays = 35)
             {
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", Api.ApiKey);
                 if (name != null) values.Add("name", name);
                 if (expiresAfterDays != 35) values.Add("expiresAfterDays", expiresAfterDays.ToString());
                 byte[] apiResponse = ApiUtilities.HttpPostFile(Api.ApiUri + "/file/upload", new List<FileData>() { file }, values);
-                ApiResponse<File> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<File>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.File> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.File>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -2415,7 +2414,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="from">Starting date for search in YYYY-MM-DDThh:mm:ss format.</param>
             /// <param name="to">Ending date for search in YYYY-MM-DDThh:mm:ss format.</param>
             /// <returns>List(List)</returns>
-            public static List<List> list(DateTime? from = null, DateTime? to = null)
+            public static List<ApiTypes.List> list(DateTime? from = null, DateTime? to = null)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -2423,7 +2422,7 @@ namespace ElasticEmail.WebApiClient
                 if (from != null) values.Add("from", from.Value.ToString("M/d/yyyy h:mm:ss tt"));
                 if (to != null) values.Add("to", to.Value.ToString("M/d/yyyy h:mm:ss tt"));
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/list/list", values);
-                ApiResponse<List<List>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<List>>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<List<ApiTypes.List>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<ApiTypes.List>>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -2434,14 +2433,14 @@ namespace ElasticEmail.WebApiClient
             /// <param name="apikey">ApiKey that gives you access to our SMTP and HTTP API's.</param>
             /// <param name="listName">Name of your list.</param>
             /// <returns>List</returns>
-            public static List Load(string listName)
+            public static ApiTypes.List Load(string listName)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", Api.ApiKey);
                 values.Add("listName", listName);
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/list/load", values);
-                ApiResponse<List> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.List> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.List>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -2652,7 +2651,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="email">Proper email address.</param>
             /// <param name="useStatusChangeDate">True, if 'from' and 'to' parameters should resolve to the Status Change date. To resolve to the creation date - false</param>
             /// <returns>Log</returns>
-            public static Log Load(IEnumerable<LogJobStatus> statuses, DateTime? from = null, DateTime? to = null, string channelName = null, int limit = 0, int offset = 0, bool includeEmail = true, bool includeSms = true, IEnumerable<MessageCategory> messageCategory = null, string email = null, bool useStatusChangeDate = false)
+            public static ApiTypes.Log Load(IEnumerable<LogJobStatus> statuses, DateTime? from = null, DateTime? to = null, string channelName = null, int limit = 0, int offset = 0, bool includeEmail = true, bool includeSms = true, IEnumerable<MessageCategory> messageCategory = null, string email = null, bool useStatusChangeDate = false)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -2669,7 +2668,7 @@ namespace ElasticEmail.WebApiClient
                 if (email != null) values.Add("email", email);
                 if (useStatusChangeDate != false) values.Add("useStatusChangeDate", useStatusChangeDate.ToString());
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/log/load", values);
-                ApiResponse<Log> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<Log>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.Log> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.Log>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -2687,7 +2686,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="useStatusChangeDate">True, if 'from' and 'to' parameters should resolve to the Status Change date. To resolve to the creation date - false</param>
             /// <param name="notificationType"></param>
             /// <returns>Log</returns>
-            public static Log LoadNotifications(IEnumerable<LogJobStatus> statuses, DateTime? from = null, DateTime? to = null, int limit = 0, int offset = 0, IEnumerable<MessageCategory> messageCategory = null, bool useStatusChangeDate = false, NotificationType notificationType = NotificationType.All)
+            public static ApiTypes.Log LoadNotifications(IEnumerable<LogJobStatus> statuses, DateTime? from = null, DateTime? to = null, int limit = 0, int offset = 0, IEnumerable<MessageCategory> messageCategory = null, bool useStatusChangeDate = false, NotificationType notificationType = NotificationType.All)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -2701,7 +2700,7 @@ namespace ElasticEmail.WebApiClient
                 if (useStatusChangeDate != false) values.Add("useStatusChangeDate", useStatusChangeDate.ToString());
                 if (notificationType != NotificationType.All) values.Add("notificationType", notificationType.ToString());
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/log/loadnotifications", values);
-                ApiResponse<Log> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<Log>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.Log> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.Log>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -2732,7 +2731,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="interval">'Hourly' for detailed information, 'summary' for daily overview</param>
             /// <param name="transactionID">ID number of transaction</param>
             /// <returns>LogSummary</returns>
-            public static LogSummary Summary(DateTime from, DateTime to, string channelName = null, IntervalType interval = IntervalType.Summary, string transactionID = null)
+            public static ApiTypes.LogSummary Summary(DateTime from, DateTime to, string channelName = null, IntervalType interval = IntervalType.Summary, string transactionID = null)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -2743,7 +2742,7 @@ namespace ElasticEmail.WebApiClient
                 if (interval != IntervalType.Summary) values.Add("interval", interval.ToString());
                 if (transactionID != null) values.Add("transactionID", transactionID);
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/log/summary", values);
-                ApiResponse<LogSummary> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<LogSummary>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.LogSummary> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.LogSummary>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -2765,7 +2764,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="segmentName">Name of your segment.</param>
             /// <param name="rule">Query used for filtering.</param>
             /// <returns>Segment</returns>
-            public static Segment Add(string segmentName, string rule)
+            public static ApiTypes.Segment Add(string segmentName, string rule)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -2773,7 +2772,7 @@ namespace ElasticEmail.WebApiClient
                 values.Add("segmentName", segmentName);
                 values.Add("rule", rule);
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/segment/add", values);
-                ApiResponse<Segment> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<Segment>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.Segment> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.Segment>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -2786,7 +2785,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="newSegmentName">New name of your segment if you want to change it.</param>
             /// <param name="rule">Query used for filtering.</param>
             /// <returns>Segment</returns>
-            public static Segment Copy(string sourceSegmentName, string newSegmentName = null, string rule = null)
+            public static ApiTypes.Segment Copy(string sourceSegmentName, string newSegmentName = null, string rule = null)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -2795,7 +2794,7 @@ namespace ElasticEmail.WebApiClient
                 if (newSegmentName != null) values.Add("newSegmentName", newSegmentName);
                 if (rule != null) values.Add("rule", rule);
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/segment/copy", values);
-                ApiResponse<Segment> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<Segment>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.Segment> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.Segment>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -2825,7 +2824,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="compressionFormat">FileResponse compression format. None or Zip.</param>
             /// <param name="fileName">Name of your file.</param>
             /// <returns>ExportLink</returns>
-            public static ExportLink Export(string segmentName, ExportFileFormats fileFormat = ExportFileFormats.Csv, CompressionFormat compressionFormat = CompressionFormat.None, string fileName = null)
+            public static ApiTypes.ExportLink Export(string segmentName, ExportFileFormats fileFormat = ExportFileFormats.Csv, CompressionFormat compressionFormat = CompressionFormat.None, string fileName = null)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -2835,7 +2834,7 @@ namespace ElasticEmail.WebApiClient
                 if (compressionFormat != CompressionFormat.None) values.Add("compressionFormat", compressionFormat.ToString());
                 if (fileName != null) values.Add("fileName", fileName);
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/segment/export", values);
-                ApiResponse<ExportLink> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ExportLink>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.ExportLink> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.ExportLink>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -2848,7 +2847,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="from">From what date should the segment history be shown. In YYYY-MM-DDThh:mm:ss format.</param>
             /// <param name="to">To what date should the segment history be shown. In YYYY-MM-DDThh:mm:ss format.</param>
             /// <returns>List(Segment)</returns>
-            public static List<Segment> List(bool includeHistory = false, DateTime? from = null, DateTime? to = null)
+            public static List<ApiTypes.Segment> List(bool includeHistory = false, DateTime? from = null, DateTime? to = null)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -2857,7 +2856,7 @@ namespace ElasticEmail.WebApiClient
                 if (from != null) values.Add("from", from.Value.ToString("M/d/yyyy h:mm:ss tt"));
                 if (to != null) values.Add("to", to.Value.ToString("M/d/yyyy h:mm:ss tt"));
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/segment/list", values);
-                ApiResponse<List<Segment>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<Segment>>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<List<ApiTypes.Segment>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<ApiTypes.Segment>>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -2871,7 +2870,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="from">From what date should the segment history be shown. In YYYY-MM-DDThh:mm:ss format.</param>
             /// <param name="to">To what date should the segment history be shown. In YYYY-MM-DDThh:mm:ss format.</param>
             /// <returns>List(Segment)</returns>
-            public static List<Segment> LoadByName(IEnumerable<string> segmentNames, bool includeHistory = false, DateTime? from = null, DateTime? to = null)
+            public static List<ApiTypes.Segment> LoadByName(IEnumerable<string> segmentNames, bool includeHistory = false, DateTime? from = null, DateTime? to = null)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -2881,7 +2880,7 @@ namespace ElasticEmail.WebApiClient
                 if (from != null) values.Add("from", from.Value.ToString("M/d/yyyy h:mm:ss tt"));
                 if (to != null) values.Add("to", to.Value.ToString("M/d/yyyy h:mm:ss tt"));
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/segment/loadbyname", values);
-                ApiResponse<List<Segment>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<Segment>>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<List<ApiTypes.Segment>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<ApiTypes.Segment>>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -2894,7 +2893,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="newSegmentName">New name of your segment if you want to change it.</param>
             /// <param name="rule">Query used for filtering.</param>
             /// <returns>Segment</returns>
-            public static Segment Update(string segmentName, string newSegmentName = null, string rule = null)
+            public static ApiTypes.Segment Update(string segmentName, string newSegmentName = null, string rule = null)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -2903,7 +2902,7 @@ namespace ElasticEmail.WebApiClient
                 if (newSegmentName != null) values.Add("newSegmentName", newSegmentName);
                 if (rule != null) values.Add("rule", rule);
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/segment/update", values);
-                ApiResponse<Segment> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<Segment>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.Segment> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.Segment>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -2952,14 +2951,14 @@ namespace ElasticEmail.WebApiClient
             /// <param name="apikey">ApiKey that gives you access to our SMTP and HTTP API's.</param>
             /// <param name="survey">Json representation of a survey</param>
             /// <returns>Survey</returns>
-            public static Survey Add(Survey survey)
+            public static ApiTypes.Survey Add(ApiTypes.Survey survey)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", Api.ApiKey);
                 values.Add("survey", Newtonsoft.Json.JsonConvert.SerializeObject(survey));
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/survey/add", values);
-                ApiResponse<Survey> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<Survey>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.Survey> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.Survey>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -2989,7 +2988,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="fileFormat">Format of the exported file</param>
             /// <param name="compressionFormat">FileResponse compression format. None or Zip.</param>
             /// <returns>ExportLink</returns>
-            public static ExportLink Export(Guid publicSurveyID, string fileName, ExportFileFormats fileFormat = ExportFileFormats.Csv, CompressionFormat compressionFormat = CompressionFormat.None)
+            public static ApiTypes.ExportLink Export(Guid publicSurveyID, string fileName, ExportFileFormats fileFormat = ExportFileFormats.Csv, CompressionFormat compressionFormat = CompressionFormat.None)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -2999,7 +2998,7 @@ namespace ElasticEmail.WebApiClient
                 if (fileFormat != ExportFileFormats.Csv) values.Add("fileFormat", fileFormat.ToString());
                 if (compressionFormat != CompressionFormat.None) values.Add("compressionFormat", compressionFormat.ToString());
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/survey/export", values);
-                ApiResponse<ExportLink> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ExportLink>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.ExportLink> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.ExportLink>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -3009,13 +3008,13 @@ namespace ElasticEmail.WebApiClient
             /// </summary>
             /// <param name="apikey">ApiKey that gives you access to our SMTP and HTTP API's.</param>
             /// <returns>List(Survey)</returns>
-            public static List<Survey> List()
+            public static List<ApiTypes.Survey> List()
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", Api.ApiKey);
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/survey/list", values);
-                ApiResponse<List<Survey>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<Survey>>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<List<ApiTypes.Survey>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<ApiTypes.Survey>>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -3026,14 +3025,14 @@ namespace ElasticEmail.WebApiClient
             /// <param name="apikey">ApiKey that gives you access to our SMTP and HTTP API's.</param>
             /// <param name="publicSurveyID">Survey identifier</param>
             /// <returns>List(SurveyResultInfo)</returns>
-            public static List<SurveyResultInfo> LoadResponseList(Guid publicSurveyID)
+            public static List<ApiTypes.SurveyResultInfo> LoadResponseList(Guid publicSurveyID)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", Api.ApiKey);
                 values.Add("publicSurveyID", publicSurveyID.ToString());
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/survey/loadresponselist", values);
-                ApiResponse<List<SurveyResultInfo>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<SurveyResultInfo>>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<List<ApiTypes.SurveyResultInfo>> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<List<ApiTypes.SurveyResultInfo>>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -3044,14 +3043,14 @@ namespace ElasticEmail.WebApiClient
             /// <param name="apikey">ApiKey that gives you access to our SMTP and HTTP API's.</param>
             /// <param name="publicSurveyID">Survey identifier</param>
             /// <returns>SurveyResultsSummaryInfo</returns>
-            public static SurveyResultsSummaryInfo LoadResults(Guid publicSurveyID)
+            public static ApiTypes.SurveyResultsSummaryInfo LoadResults(Guid publicSurveyID)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", Api.ApiKey);
                 values.Add("publicSurveyID", publicSurveyID.ToString());
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/survey/loadresults", values);
-                ApiResponse<SurveyResultsSummaryInfo> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<SurveyResultsSummaryInfo>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.SurveyResultsSummaryInfo> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.SurveyResultsSummaryInfo>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -3062,14 +3061,14 @@ namespace ElasticEmail.WebApiClient
             /// <param name="apikey">ApiKey that gives you access to our SMTP and HTTP API's.</param>
             /// <param name="survey">Json representation of a survey</param>
             /// <returns>Survey</returns>
-            public static Survey Update(Survey survey)
+            public static ApiTypes.Survey Update(ApiTypes.Survey survey)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
                 values.Add("apikey", Api.ApiKey);
                 values.Add("survey", Newtonsoft.Json.JsonConvert.SerializeObject(survey));
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/survey/update", values);
-                ApiResponse<Survey> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<Survey>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.Survey> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.Survey>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -3148,7 +3147,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="fromEmail">Default From: email address.</param>
             /// <param name="fromName">Default From: name.</param>
             /// <returns>Template</returns>
-            public static Template Copy(int templateID, string name, string subject, string fromEmail, string fromName)
+            public static ApiTypes.Template Copy(int templateID, string name, string subject, string fromEmail, string fromName)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -3159,7 +3158,7 @@ namespace ElasticEmail.WebApiClient
                 values.Add("fromEmail", fromEmail);
                 values.Add("fromName", fromName);
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/template/copy", values);
-                ApiResponse<Template> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<Template>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.Template> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.Template>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -3205,7 +3204,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="limit">Maximum of loaded items.</param>
             /// <param name="offset">How many items should be loaded ahead.</param>
             /// <returns>TemplateList</returns>
-            public static TemplateList GetList(int limit = 500, int offset = 0)
+            public static ApiTypes.TemplateList GetList(int limit = 500, int offset = 0)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -3213,7 +3212,7 @@ namespace ElasticEmail.WebApiClient
                 if (limit != 500) values.Add("limit", limit.ToString());
                 if (offset != 0) values.Add("offset", offset.ToString());
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/template/getlist", values);
-                ApiResponse<TemplateList> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<TemplateList>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.TemplateList> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.TemplateList>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
@@ -3225,7 +3224,7 @@ namespace ElasticEmail.WebApiClient
             /// <param name="templateID">ID number of template.</param>
             /// <param name="ispublic"></param>
             /// <returns>Template</returns>
-            public static Template LoadTemplate(int templateID, bool ispublic = false)
+            public static ApiTypes.Template LoadTemplate(int templateID, bool ispublic = false)
             {
                 WebClient client = new CustomWebClient();
                 NameValueCollection values = new NameValueCollection();
@@ -3233,7 +3232,7 @@ namespace ElasticEmail.WebApiClient
                 values.Add("templateID", templateID.ToString());
                 if (ispublic != false) values.Add("ispublic", ispublic.ToString());
                 byte[] apiResponse = client.UploadValues(Api.ApiUri + "/template/loadtemplate", values);
-                ApiResponse<Template> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<Template>>(Encoding.UTF8.GetString(apiResponse));
+                ApiResponse<ApiTypes.Template> apiRet = Newtonsoft.Json.JsonConvert.DeserializeObject<ApiResponse<ApiTypes.Template>>(Encoding.UTF8.GetString(apiResponse));
                 if (!apiRet.success) throw new ApplicationException(apiRet.error);
                 return apiRet.Data;
             }
